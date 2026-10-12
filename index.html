@@ -321,6 +321,12 @@ button:active {
     psst... one button may be a little dramatic
   </p>
 </main>
+  
+<iframe
+  id="moduleFrame"
+  title="Birthday modules"
+  style="display:none; position:fixed; inset:0; width:100%; height:100%; border:0; z-index:1000; background:white;"
+></iframe>
 
 <script>
 /* Floating hearts, bows, flowers and sparkles */
@@ -354,32 +360,29 @@ for (let i = 0; i < 15; i++) {
   decorations.appendChild(star);
   
 }
-const music = new Audio("background-music.mp3");
-music.loop = false;
+  
+const music = new Audio("./background-music.mp3");
+music.loop = true;
+music.preload = "auto";
 
-const savedTime = sessionStorage.getItem("songTime");
-const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
+const moduleFrame = document.getElementById("moduleFrame");
+const firstModule = document.querySelector("main.card");
 
-if (savedTime !== null) {
-    music.currentTime = Number(savedTime);
-}
+function startBirthdayWebsite() {
+    // Start music from the YES button tap
+    music.play().catch(error => {
+        console.log("Music playback blocked:", error);
+    });
 
-function continueMusic() {
-    if (wasPlaying) {
-        music.play().catch(() => {
-            console.log("Tap the page to resume music.");
-        });
-    }
-}
-
-function goToModule(nextPage) {
-    sessionStorage.setItem("songTime", music.currentTime);
-    sessionStorage.setItem("songPlaying", String(!music.paused));
-    window.location.href = nextPage;
+    // Hide Module 1 and open Module 2
+    firstModule.style.display = "none";
+    moduleFrame.style.display = "block";
+    moduleFrame.src = "./module2.html";
 }
 /* Yes opens Module 2 */
+
 document.getElementById("yesButton").addEventListener("click", () => {
-  window.location.href = "module2.html";
+    startBirthdayWebsite();
 });
 
 /* A playful response for Not yet */
