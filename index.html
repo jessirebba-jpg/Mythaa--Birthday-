@@ -330,7 +330,7 @@ button:active {
 /* Floating hearts, bows, flowers and sparkles */
 const decorations = document.getElementById("decorations");
 
-const floatEmojis = ["♡", "💗", "🎀", "🌸", "💕", "🩷", "୨୧"];
+const floatEmojis = ["🍂", "💗", "🎀", "🌸", "", "🎊", "🤍"];
 
 for (let i = 0; i < 24; i++) {
   const item = document.createElement("span");
@@ -380,8 +380,28 @@ noButton.addEventListener("click", () => {
   response.textContent = messages[messageIndex % messages.length];
   messageIndex++;
 });
-</script>
 
+  
+<audio id="birthdayMusic" autoplay loop preload="auto">
+  <source src="./background-music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("birthdayMusic");
+
+music.volume = 1;
+
+const tryMusic = () => {
+  music.play().catch(() => {
+    // The browser may block autoplay with sound.
+  });
+};
+
+tryMusic();
+
+document.addEventListener("click", tryMusic, { once: true });
+
+</script>
 </body>
 </html>
 
