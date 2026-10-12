@@ -299,7 +299,6 @@ body.finished .message {
 .next-module.show { display: block; }
 .next-module:active { transform: translateX(-50%) scale(.97); }
 body.finished .message { padding-bottom: 55px; }
-
 </style>
 </head>
 <body>
@@ -337,33 +336,20 @@ body.finished .message { padding-bottom: 55px; }
     </div>
   </section>
 </main>
-  
-<button class="next-module" id="nextModule" type="button" onclick="window.location.href='module3.html'">Continue to the birthday wish →</button>
+
+<button
+  class="next-module"
+  id="nextModule"
+  type="button"
+  onclick="window.parent.postMessage(
+    { type: 'NEXT_MODULE', page: 'module3.html' },
+    window.location.origin
+  )"
+>
+  Continue to the birthday wish →
+</button>
+
 <script>
-  
-const music = new Audio("background-music.mp3");
-music.loop = false;
-
-const savedTime = sessionStorage.getItem("songTime");
-const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
-
-if (savedTime !== null) {
-    music.currentTime = Number(savedTime);
-}
-
-function continueMusic() {
-    if (wasPlaying) {
-        music.play().catch(() => {
-            console.log("Tap the page to resume music.");
-        });
-    }
-}
-
-function goToModule(nextPage) {
-    sessionStorage.setItem("songTime", music.currentTime);
-    sessionStorage.setItem("songPlaying", String(!music.paused));
-    window.location.href = nextPage;
-}
 const balloons = [...document.querySelectorAll(".balloon")];
 const words = [
   document.getElementById("word1"),
@@ -395,6 +381,5 @@ balloons.forEach((balloon) => {
   });
 });
       </script>
-  </script>
 </body>
 </html>
