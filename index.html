@@ -283,8 +283,6 @@ button:active {
 <div id="decorations" aria-hidden="true"></div>
 
 <main class="card">
-  <div class="ribbon">🎀</div>
-
   <div class="eyebrow">✦ A tiny page made with love ✦</div>
 
   <h1>
@@ -322,8 +320,6 @@ button:active {
   <p class="small-note">
     psst... one button may be a little dramatic
   </p>
-
-  <div class="footer">♡ 🎀 ♡</div>
 </main>
 
 <script>
@@ -380,27 +376,6 @@ noButton.addEventListener("click", () => {
   response.textContent = messages[messageIndex % messages.length];
   messageIndex++;
 });
-
-  
-<audio id="birthdayMusic" autoplay loop preload="auto">
-  <source src="./background-music.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-const music = document.getElementById("birthdayMusic");
-
-music.volume = 1;
-
-const tryMusic = () => {
-  music.play().catch(() => {
-    // The browser may block autoplay with sound.
-  });
-};
-
-tryMusic();
-
-document.addEventListener("click", tryMusic, { once: true });
-
 </script>
 </body>
 </html>
