@@ -35,24 +35,28 @@ document.getElementById('again').addEventListener('click',()=>{window.location.h
 
 document.getElementById("replayFromCake").addEventListener("click",()=>{window.location.href="./index.html";});
 </script>
-  
-<audio id="birthdayMusic" autoplay loop preload="auto">
-  <source src="./background-music.mp3" type="audio/mpeg">
-</audio>
+const music = new Audio("background-music.mp3");
+music.loop = false;
 
-<script>
-const music = document.getElementById("birthdayMusic");
+const savedTime = sessionStorage.getItem("songTime");
+const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
 
-music.volume = 1;
+if (savedTime !== null) {
+    music.currentTime = Number(savedTime);
+}
 
-const tryMusic = () => {
-  music.play().catch(() => {
-    // The browser may block autoplay with sound.
-  });
-};
+function continueMusic() {
+    if (wasPlaying) {
+        music.play().catch(() => {
+            console.log("Tap the page to resume music.");
+        });
+    }
+}
 
-tryMusic();
+function goToModule(nextPage) {
+    sessionStorage.setItem("songTime", music.currentTime);
+    sessionStorage.setItem("songPlaying", String(!music.paused));
+    window.location.href = nextPage;
+}  
 
-document.addEventListener("click", tryMusic, { once: true });
-</script>
 </body></html>
