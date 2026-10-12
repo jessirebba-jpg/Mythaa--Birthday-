@@ -24,4 +24,25 @@ h1{font-size:clamp(21px,5vw,31px);font-weight:500;font-style:italic;color:#78569
 const petals=document.getElementById('petals');for(let i=0;i<17;i++){const p=document.createElement('span');p.className='petal';p.textContent=['🌸','🌹','♡'][i%3];p.style.left=Math.random()*100+'%';p.style.animationDuration=(7+Math.random()*8)+'s';p.style.animationDelay=(-Math.random()*12)+'s';p.style.fontSize=(10+Math.random()*12)+'px';petals.appendChild(p)}
 const captions=Array.from(document.querySelectorAll('.caption'));let captionIndex=0;function showNextCaption(){if(captionIndex>=captions.length){window.clearInterval(captionTimer);return;}captions[captionIndex].classList.add('active');captionIndex++;}showNextCaption();const captionTimer=window.setInterval(showNextCaption,2200);
 function continueNext(){window.location.href='module5.html';}
-</script></body></html>
+</script>
+  
+<audio id="birthdayMusic" autoplay loop preload="auto">
+  <source src="./background-music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("birthdayMusic");
+
+music.volume = 1;
+
+const tryMusic = () => {
+  music.play().catch(() => {
+    // The browser may block autoplay with sound.
+  });
+};
+
+tryMusic();
+
+document.addEventListener("click", tryMusic, { once: true });
+</script>
+</body></html>
