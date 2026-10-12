@@ -35,28 +35,5 @@ document.getElementById('again').addEventListener('click',()=>{window.location.h
 
 document.getElementById("replayFromCake").addEventListener("click",()=>{window.location.href="./index.html";});
 </script>
-const music = new Audio("background-music.mp3");
-music.loop = false;
-
-const savedTime = sessionStorage.getItem("songTime");
-const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
-
-if (savedTime !== null) {
-    music.currentTime = Number(savedTime);
-}
-
-function continueMusic() {
-    if (wasPlaying) {
-        music.play().catch(() => {
-            console.log("Tap the page to resume music.");
-        });
-    }
-}
-
-function goToModule(nextPage) {
-    sessionStorage.setItem("songTime", music.currentTime);
-    sessionStorage.setItem("songPlaying", String(!music.paused));
-    window.location.href = nextPage;
-}  
 
 </body></html>
