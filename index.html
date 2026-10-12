@@ -352,8 +352,31 @@ for (let i = 0; i < 15; i++) {
   star.style.setProperty("--delay", (-Math.random() * 3) + "s");
 
   decorations.appendChild(star);
+  
+}
+const music = new Audio("background-music.mp3");
+music.loop = false;
+
+const savedTime = sessionStorage.getItem("songTime");
+const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
+
+if (savedTime !== null) {
+    music.currentTime = Number(savedTime);
 }
 
+function continueMusic() {
+    if (wasPlaying) {
+        music.play().catch(() => {
+            console.log("Tap the page to resume music.");
+        });
+    }
+}
+
+function goToModule(nextPage) {
+    sessionStorage.setItem("songTime", music.currentTime);
+    sessionStorage.setItem("songPlaying", String(!music.paused));
+    window.location.href = nextPage;
+}
 /* Yes opens Module 2 */
 document.getElementById("yesButton").addEventListener("click", () => {
   window.location.href = "module2.html";
