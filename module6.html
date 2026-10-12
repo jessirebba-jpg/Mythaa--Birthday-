@@ -42,4 +42,25 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.52;ba
 function openLetter(){const scene=document.getElementById('scene');scene.classList.add('opened');document.getElementById('hint').style.display='none';document.getElementById('envelopeArea').style.height='125px';setTimeout(()=>{document.getElementById('letter').style.display='block';document.getElementById('nextModule').classList.add('show');document.getElementById('letter').scrollIntoView({behavior:'smooth',block:'start'});},550);}
 
 for(let i=0;i<22;i++){const p=document.createElement('span');p.className='petal';p.textContent=['✿','♡','🌸','✧'][i%4];p.style.left=Math.random()*100+'vw';p.style.animationDuration=(8+Math.random()*10)+'s';p.style.animationDelay=(-Math.random()*15)+'s';p.style.fontSize=(12+Math.random()*13)+'px';document.body.appendChild(p);}
-</script></body></html>
+</script>
+  
+<audio id="birthdayMusic" autoplay loop preload="auto">
+  <source src="./background-music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("birthdayMusic");
+
+music.volume = 1;
+
+const tryMusic = () => {
+  music.play().catch(() => {
+    // The browser may block autoplay with sound.
+  });
+};
+
+tryMusic();
+
+document.addEventListener("click", tryMusic, { once: true });
+</script>
+</body></html>
