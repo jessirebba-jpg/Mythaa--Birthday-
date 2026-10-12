@@ -85,30 +85,34 @@ function finish(){slideshow.classList.add('hidden');ending.classList.remove('hid
 button.addEventListener('click',()=>index<memories.length-1?next():finish());
 window.openSweetMemories=function(){index=0;slideshow.classList.remove('hidden');ending.classList.add('hidden');cont.classList.add('hidden');hint.textContent='Tap the photo for the next memory →';render();};
 // CONNECTION: Module 5 → Module 6 (Secret Message)
+ const music = new Audio("background-music.mp3");
+music.loop = false;
+
+const savedTime = sessionStorage.getItem("songTime");
+const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
+
+if (savedTime !== null) {
+    music.currentTime = Number(savedTime);
+}
+
+function continueMusic() {
+    if (wasPlaying) {
+        music.play().catch(() => {
+            console.log("Tap the page to resume music.");
+        });
+    }
+}
+
+function goToModule(nextPage) {
+    sessionStorage.setItem("songTime", music.currentTime);
+    sessionStorage.setItem("songPlaying", String(!music.paused));
+    window.location.href = nextPage;
+}
 cont.addEventListener('click', () => {
   window.location.href = './module6.html';
 });
 render();
-</script>
- 
-<audio id="birthdayMusic" autoplay loop preload="auto">
-  <source src="./background-music.mp3" type="audio/mpeg">
-</audio>
 
-<script>
-const music = document.getElementById("birthdayMusic");
-
-music.volume = 1;
-
-const tryMusic = () => {
-  music.play().catch(() => {
-    // The browser may block autoplay with sound.
-  });
-};
-
-tryMusic();
-
-document.addEventListener("click", tryMusic, { once: true });
 </script>
 </body>
 </html>
