@@ -90,5 +90,25 @@ cont.addEventListener('click', () => {
 });
 render();
 </script>
+ 
+<audio id="birthdayMusic" autoplay loop preload="auto">
+  <source src="./background-music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("birthdayMusic");
+
+music.volume = 1;
+
+const tryMusic = () => {
+  music.play().catch(() => {
+    // The browser may block autoplay with sound.
+  });
+};
+
+tryMusic();
+
+document.addEventListener("click", tryMusic, { once: true });
+</script>
 </body>
 </html>
