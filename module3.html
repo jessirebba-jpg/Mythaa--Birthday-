@@ -38,6 +38,29 @@ main{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:c
 <section class="wish" id="wish"><div class="wish-icon">💖</div><h2>Close your eyes<br>&amp; make a wish</h2><p>May your birthday wish come true ✨</p><button class="btn primary" id="nextModule" style="display:none;position:relative;z-index:5;margin:0 auto 28px" type="button" onclick="continueNext()">Continue to the roses →</button>
 </section>
 <script>
+const music = new Audio("background-music.mp3");
+music.loop = false;
+
+const savedTime = sessionStorage.getItem("songTime");
+const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
+
+if (savedTime !== null) {
+    music.currentTime = Number(savedTime);
+}
+
+function continueMusic() {
+    if (wasPlaying) {
+        music.play().catch(() => {
+            console.log("Tap the page to resume music.");
+        });
+    }
+}
+
+function goToModule(nextPage) {
+    sessionStorage.setItem("songTime", music.currentTime);
+    sessionStorage.setItem("songPlaying", String(!music.paused));
+    window.location.href = nextPage;
+}  
 function continueNext() { window.location.href = './module4.html'; }
 
 const stage = document.getElementById('stage');
@@ -59,25 +82,5 @@ function extinguish() {
 }
 
 tapBtn.addEventListener('click', extinguish);
-</script>
-  
-<audio id="birthdayMusic" autoplay loop preload="auto">
-  <source src="./background-music.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-const music = document.getElementById("birthdayMusic");
-
-music.volume = 1;
-
-const tryMusic = () => {
-  music.play().catch(() => {
-    // The browser may block autoplay with sound.
-  });
-};
-
-tryMusic();
-
-document.addEventListener("click", tryMusic, { once: true });
 </script>
 </body></html>
