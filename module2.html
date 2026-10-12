@@ -337,8 +337,33 @@ body.finished .message { padding-bottom: 55px; }
     </div>
   </section>
 </main>
+  
 <button class="next-module" id="nextModule" type="button" onclick="window.location.href='module3.html'">Continue to the birthday wish →</button>
 <script>
+  
+const music = new Audio("background-music.mp3");
+music.loop = false;
+
+const savedTime = sessionStorage.getItem("songTime");
+const wasPlaying = sessionStorage.getItem("songPlaying") === "true";
+
+if (savedTime !== null) {
+    music.currentTime = Number(savedTime);
+}
+
+function continueMusic() {
+    if (wasPlaying) {
+        music.play().catch(() => {
+            console.log("Tap the page to resume music.");
+        });
+    }
+}
+
+function goToModule(nextPage) {
+    sessionStorage.setItem("songTime", music.currentTime);
+    sessionStorage.setItem("songPlaying", String(!music.paused));
+    window.location.href = nextPage;
+}
 const balloons = [...document.querySelectorAll(".balloon")];
 const words = [
   document.getElementById("word1"),
@@ -369,24 +394,7 @@ balloons.forEach((balloon) => {
     }
   });
 });
-</script>
-  <audio id="birthdayMusic" autoplay loop preload="auto">
-  <source src="./background-music.mp3" type="audio/mpeg">
-  </audio>
-  <script>
-  const music = document.getElementById("birthdayMusic");
-
-music.volume = 1;
-
-const tryMusic = () => {
-  music.play().catch(() => {
-    // The browser may block autoplay with sound.
-  });
-};
-
-tryMusic();
-
-document.addEventListener("click", tryMusic, { once: true });
+      </script>
   </script>
 </body>
 </html>
